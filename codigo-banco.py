@@ -4,16 +4,6 @@ from datetime import datetime, timedelta
 
 BD = "usuarios.json"
 
-def saludo():
-    hora = datetime.now().hour
-
-    if 6 <= hora < 12:
-        return "Buenos días ☀️"
-    elif 12 <= hora < 20:
-        return "Buenas tardes 🌤️"
-    else:
-        return "Buenas noches 🌙"
-
 def cargar_bd():
     if not os.path.exists(BD):
         with open(BD, "w", encoding="utf-8") as f:
@@ -96,6 +86,16 @@ def iniciar_sesion():
     guardar_bd(data)
     print("Agotaste tus intentos, vuelva otro día.")
     return None, data
+
+def saludo():
+    hora = datetime.now().hour
+
+    if 6 <= hora < 12:
+        return "Buenos días ☀️"
+    elif 12 <= hora < 20:
+        return "Buenas tardes 🌤️"
+    else:
+        return "Buenas noches 🌙"
 
 def procesar_pendientes(usuario, data):
     if not usuario["pendientes"]:
