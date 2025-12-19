@@ -3,6 +3,36 @@ import os
 from datetime import datetime, timedelta
 import time
 
+#Validaciones Basicas
+def input_no_vacio(msg):
+    txt = input(msg).strip()
+    while txt == "":
+        print("⚠️ No puede estar vacío.")
+        txt = input(msg).strip()
+    return txt
+
+def input_float_positivo(msg):
+    while True:
+        try:
+            n = float(input(msg))
+            if n <= 0:
+                print("⚠️ Debe ser mayor que 0.")
+            else:
+                return n
+        except:
+            print("⚠️ Debe ser un número válido.")
+
+def input_int_positivo(msg):
+    while True:
+        try:
+            n = int(input(msg))
+            if n <= 0:
+                print("⚠️ Debe ser mayor que 0.")
+            else:
+                return n
+        except:
+            print("⚠️ Debe ser un número entero válido.")
+
 BD = "usuarios.json"
 
 def cargar_bd():
@@ -20,15 +50,18 @@ def crear_usuario():
     data = cargar_bd()
     nombre = input("Nombre: ")
     dni = input("DNI: ").upper()
-    while not dni.isalnum():
-        print("Error: el DNI solo puede contener letras y números.")
+    while not dni.isalnum()< 9:
+        print("⚠️ El DNI debe tener mínimo 8 caracteres y 1 letra.")
         dni = input("DNI: ").upper()
 
     contraseña = input("Contraseña: ")
+    while len(contraseña) < 4:
+        print("⚠️ La contraseña debe tener mínimo 4 caracteres.")
+        contraseña = input_no_vacio("Contraseña: ")
 
     for u in data:
         if u["dni"] == dni:
-            print("Ese DNI ya está registrado.")
+            print("⚠️ Ese DNI ya está registrado.")
             return
 
     hoy = datetime.now().strftime("%Y-%m-%d")
@@ -64,11 +97,11 @@ def iniciar_sesion():
             usuario = u
             break
     if usuario is None:
-        print("No existe un usuario con ese DNI.")
+        print("⚠️ No existe un usuario con ese DNI.")
         return None, data
 
     if verificar_bloqueo(usuario):
-        print("Agotaste tus intentos, vuelva otro día.")
+        print("⚠️ Agotaste tus intentos, vuelva otro día.")
         return None, data
 
     intentos = 3
@@ -85,7 +118,7 @@ def iniciar_sesion():
     mañana = (datetime.now() + timedelta(days=1)).strftime("%Y-%m-%d")
     usuario["bloqueado_hasta"] = mañana
     guardar_bd(data)
-    print("Agotaste tus intentos, vuelva otro día.")
+    print("⚠️ Agotaste tus intentos, vuelva otro día.")
     return None, data
 
 def saludo():
@@ -135,10 +168,16 @@ def enviar_dinero(usuario, data):
         print("Contraseña incorrecta.")
         return
     dni_dest = input("DNI destinatario: ")
+
+    if dni_dest == usuario["dni"]:
+        print("⚠️ No puedes enviarte dinero a ti mismo.")
+        return
+
     cantidad = float(input("Cantidad: "))
 
+
     if usuario["saldo"] < cantidad:
-        print("Saldo insuficiente.")
+        print("⚠️ No posees esa cantidad.")
         return
 
     destino = None
@@ -311,3 +350,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
