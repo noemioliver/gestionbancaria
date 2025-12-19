@@ -1,0 +1,91 @@
+[
+    {
+        "nombre": "Gazna",
+        "dni": "21345690G",
+        "password": "leyenda",
+        "saldo": 69.0,
+        "historial": [
+            "2025-12-19: Cobro semanal del banco 1 €",
+            "2025-12-19: Ingreso de 200.0 €",
+            "2025-12-19: Enviado a 89127834K 100.0 €",
+            "2025-12-19: Enviado a 89127834K -5.0 €",
+            "2025-12-19: Enviado a 92893478L 20.0 €",
+            "2025-12-19: Enviado a 89123289L 20.0 €",
+            "2025-12-19: Cobro automático de 89123289L 5.0 €"
+        ],
+        "pendientes": [],
+        "cobradores": [
+            {
+                "origen": "89123289L",
+                "cantidad": 5.0,
+                "prox_fecha": "2025-12-26",
+                "repeticiones": 1
+            }
+        ],
+        "bloqueado_hasta": "",
+        "creado": "2025-12-19",
+        "ult_cobro_banco": "0"
+    },
+    {
+        "nombre": "Zenitsu",
+        "dni": "98154389Z",
+        "password": "rashitos",
+        "saldo": 0,
+        "historial": [],
+        "pendientes": [],
+        "cobradores": [],
+        "bloqueado_hasta": "",
+        "creado": "2025-12-19"
+    },
+    {
+        "nombre": "Jang Uk",
+        "dni": "89123289L",
+        "password": "TikiKaka",
+        "saldo": 19.0,
+        "historial": [
+            "2025-12-19: Recibido de 21345690G 20.0 €",
+            "2025-12-19: Cobro semanal del banco 1 €"
+        ],
+        "pendientes": [],
+        "cobradores": [],
+        "bloqueado_hasta": "",
+        "creado": "2025-12-19",
+        "ult_cobro_banco": "0"
+    },
+    {
+        "nombre": "Pedro Picapiedra",
+        "dni": "89127834K",
+        "password": "Jabadabadu",
+        "saldo": 0,
+        "historial": [],
+        "pendientes": [
+            {
+                "from": "21345690G",
+                "cantidad": 100.0
+            },
+            {
+                "from": "21345690G",
+                "cantidad": -5.0
+            }
+        ],
+        "cobradores": [],
+        "bloqueado_hasta": "",
+        "creado": "2025-12-19"
+    },
+    {
+        "nombre": "Jacobo",
+        "dni": "92893478L",
+        "password": "1234",
+        "saldo": 0,
+        "historial": [],
+        "pendientes": [
+            {
+                "from": "21345690G",
+                "cantidad": 20.0
+            }
+        ],
+        "cobradores": [],
+        "bloqueado_hasta": "2025-12-20",
+        "creado": "2025-12-19"
+    }
+]

@@ -188,7 +188,7 @@ def enviar_dinero(usuario, data):
         i += 1
 
     if destino is None:
-        print("No existe ese usuario.")
+        print("⚠️ No existe ese usuario.")
         return
 
     usuario["saldo"] -= cantidad
@@ -244,7 +244,7 @@ def crear_cobro_automatico(usuario, data):
         i += 1
 
     if destino is None:
-        print("No existe ese usuario.")
+        print("⚠️ No existe ese usuario.")
         return
 
     cantidad = float(input("Cantidad: "))
@@ -267,6 +267,29 @@ def ver_cobradores_activos(usuario):
         return
     for c in usuario["cobradores"]:
         print(f"Origen: {c['origen']} | Cantidad: {c['cantidad']} € | Próximo: {c['prox_fecha']} | Restantes: {c['repeticiones']}")
+
+def anadir_dinero(usuario, data):
+    pw = input("Contraseña para confirmar: ")
+    if pw != usuario["password"]:
+        print("⚠️ Contraseña incorrecta.")
+        return
+
+    try:
+        cantidad = float(input("Cantidad a ingresar: "))
+        if cantidad <= 0:
+            print("⚠️ Debe ser mayor a 0.")
+            return
+    except:
+        print("⚠️ Ingresa un número válido.")
+        return
+
+    usuario["saldo"] += cantidad
+    fecha = datetime.now().strftime("%Y-%m-%d")
+    usuario["historial"].append(f"{fecha}: Ingreso de {cantidad} €")
+
+    guardar_bd(data)
+    print(f"💰 Dinero añadido correctamente. Nuevo saldo: {usuario['saldo']} €")
+
 
 def exportar_informacion(usuario, data):
     fname = f"{usuario['dni']}_reporte.txt"
@@ -293,7 +316,9 @@ def menu_usuario(usuario, data):
         print("3. Crear cobro automático")
         print("4. Ver cobradores activos")
         print("5. Exportar historial")
-        print("6. Salir")
+        print("6. Añadir dinero")
+        print("7. Salir")
+
 
         op = input("> ")
 
@@ -315,12 +340,15 @@ def menu_usuario(usuario, data):
             exportar_informacion(usuario, data)
 
         elif op == "6":
+            anadir_dinero(usuario, data)
+
+        elif op == "7":
             guardar_bd(data)
             salir = True
             animacion_abrazo(1)
             
         else:
-            print("Opción no válida.")
+            print("⚠️ Opción no válida.")
 
 
 def main():
